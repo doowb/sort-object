@@ -30,5 +30,12 @@
     "sort object keys",
     "sort object by keys",
     "javascript sort"
-  ]
+  ],
+  "dependencies": {
+    "lodash.assign": "~2.2.1",
+    "lodash.keys": "~2.2.1"
+  },
+  "devDependencies": {
+    "mocha": "~1.13.0"
+  }
 }
