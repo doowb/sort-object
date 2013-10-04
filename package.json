@@ -1,7 +1,7 @@
 {
   "name": "sort-object",
   "description": "Sort the keys in an object",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/helpers/sort-object",
   "author": {
     "name": "Assemble",
@@ -30,5 +30,12 @@
     "sort object keys",
     "sort object by keys",
     "javascript sort"
-  ]
+  ],
+  "dependencies": {
+    "lodash.assign": "~2.2.1",
+    "lodash.keys": "~2.2.1"
+  },
+  "devDependencies": {
+    "mocha": "~1.13.0"
+  }
 }
