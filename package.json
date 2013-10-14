@@ -1,7 +1,7 @@
 {
   "name": "sort-object",
   "description": "Sort the keys in an object",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/helpers/sort-object",
   "author": {
     "name": "Brian Woodward",
