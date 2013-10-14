@@ -1,11 +1,11 @@
 {
   "name": "sort-object",
   "description": "Sort the keys in an object",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/helpers/sort-object",
   "author": {
-    "name": "Assemble",
-    "url": "https://github.com/assemble"
+    "name": "Brian Woodward",
+    "url": "https://github.com/doowb"
   },
   "repository": {
     "type": "git",
@@ -24,18 +24,17 @@
   "engines": {
     "node": ">= 0.8.0"
   },
+  "dependencies": {
+    "lodash": "~2.2.1"
+  },
+  "devDependencies": {
+    "mocha": "~1.13.0"
+  },
   "keywords": [
     "sort",
     "sort object",
     "sort object keys",
     "sort object by keys",
     "javascript sort"
-  ],
-  "dependencies": {
-    "lodash.assign": "~2.2.1",
-    "lodash.keys": "~2.2.1"
-  },
-  "devDependencies": {
-    "mocha": "~1.13.0"
-  }
+  ]
 }

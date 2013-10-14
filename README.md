@@ -10,31 +10,41 @@ npm i sort-object --save
 ```
 
 ```js
-var sort = require('./sort-object');
-
+var sort = require('sort-object');
 var outOfOrder = {
   'foo': 1,
   'baz': 2,
   'bar': 3
 };
-
 console.log('before: ', outOfOrder);
 
-var inOrder = sort(outOfOrder);
 
+var inOrder = sort(outOfOrder);
 console.log('inOrder: ', inOrder);
 console.log('after: ', outOfOrder);
+```
 
+## Run the tests
+
+
+```bash
+npm i mocha -g
+```
+
+then run:
+
+```bash
+mocha
 ```
 
 
 ## Author
 
-+ [github/assemble](http://github/assemble)
++ [github/doowb](https://github/doowb)
 
 
 ## License
-Copyright (c) 2013 Assemble
+Copyright (c) 2013 Brian Woodward
 Licensed under the [MIT license](LICENSE-MIT).
 
 ***
