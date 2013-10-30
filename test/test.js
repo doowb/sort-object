@@ -109,4 +109,25 @@ describe('Sort Object', function () {
     assert.deepEqual(expected, actual);
 
   });
+
+  it('should sort the objects by their properties on an object in decending order', function () {
+
+    var outOfOrder = {
+      'baz': { 'a': 3, 'b': 2, 'c': 1 },
+      'foo': { 'a': 1, 'b': 3, 'c': 2 },
+      'bar': { 'a': 2, 'b': 1, 'c': 3 }
+    };
+
+    var expected = {
+      'baz': { 'a': 3, 'b': 2, 'c': 1 },
+      'bar': { 'a': 2, 'b': 1, 'c': 3 },
+      'foo': { 'a': 1, 'b': 3, 'c': 2 }
+    };
+
+    var actual = sort(outOfOrder, { order: 'desc', property: 'a' });
+
+    assert.deepEqual(expected, actual);
+
+  });
+
 });

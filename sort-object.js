@@ -78,13 +78,13 @@ function sort(obj, options) {
 
       expanded = _.sortBy(expanded, opts.property);
 
+      if(opts.order.toLowerCase() === 'desc') {
+        expanded.reverse();
+      }
+
       for (var i = 0; i < expanded.length; i++) {
         var value = expanded[i][opts.property];
         sorted[keys[value]] = expanded[i];
-      }
-
-      if(opts.order.toLowerCase() === 'desc') {
-        sorted.reverse();
       }
     }
 
