@@ -7,12 +7,16 @@
 
 var _ = require('lodash');
 
+function getKeys(obj) {
+  return _.keys(obj);
+};
+
 /**
  * Custom sort function to allow sorting by descending order
  * @param  {Object}     options optional parameter specifying which order to sort in.
  * @return {Function}   function used to pass into a sort function.
  */
-var sortBy = function (options) {
+function sortBy(options) {
 
   var opts = _.extend({ order: 'asc' }, options);
 
@@ -35,15 +39,13 @@ var sortBy = function (options) {
  */
 function sort(obj, options) {
 
-  var opts = _.extend({
-    order: 'asc'
-  }, options);
+  var opts = _.extend({ order: 'asc', keys: getKeys }, options);
 
   var sorted = {},
       keys   = [],
       key;
 
-  keys = _.keys(obj);
+  keys = opts.keys(obj);
   keys.sort(sortBy(options));
 
   for (var index in keys) {
