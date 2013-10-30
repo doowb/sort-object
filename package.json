@@ -28,7 +28,8 @@
     "lodash": "~2.2.1"
   },
   "devDependencies": {
-    "mocha": "~1.13.0"
+    "mocha": "~1.13.0",
+    "benchmark": "~1.0.0"
   },
   "keywords": [
     "sort",

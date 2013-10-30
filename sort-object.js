@@ -7,14 +7,16 @@
 
 var _ = require('lodash');
 
+function getKeys(obj) {
+  return _.keys(obj);
+};
+
 /**
  * Custom sort function to allow sorting by descending order
- * @param  {Object}     options optional parameter specifying which order to sort in.
+ * @param  {Object}     opts optional parameter specifying which order to sort in.
  * @return {Function}   function used to pass into a sort function.
  */
-var sortBy = function (options) {
-
-  var opts = _.extend({ order: 'asc' }, options);
+function sortBy(opts) {
 
   return function (objA, objB) {
     var result = 0;
@@ -27,6 +29,17 @@ var sortBy = function (options) {
   };
 };
 
+function sortKeys (obj, opts) {
+  var keys = [];
+  var key;
+
+  keys = opts.keys(obj);
+  keys.sort(sortBy(opts));
+
+  return keys;
+};
+
+
 /**
  * Sorts the ksys on an object
  * @param  {Object} obj     Object that has keys to be sorted
@@ -35,20 +48,54 @@ var sortBy = function (options) {
  */
 function sort(obj, options) {
 
-  var opts = _.extend({
-    order: 'asc'
-  }, options);
+  var opts = _.extend({ order: 'asc', property: false, keys: getKeys }, options);
 
-  var sorted = {},
-      keys   = [],
-      key;
+  var sorted = {};
+  var keys = [];
+  var key;
 
-  keys = _.keys(obj);
-  keys.sort(sortBy(options));
+  if(opts.property && opts.property !== false) {
 
-  for (var index in keys) {
-    key = keys[index];
-    sorted[key] = obj[key];
+    if(opts.property === true) {
+      var inverted = _.invert(obj);
+      keys = sortKeys(inverted, opts);
+
+      for (var index in keys) {
+        key = keys[index];
+        sorted[inverted[key]] = key;
+      }
+
+    } else {
+
+      var pairs = _.pairs(obj);
+      var expanded = [];
+      var keys = {};
+      for (var i = 0; i < pairs.length; i++) {
+        key = pairs[i][1][opts.property];
+        keys[key] = pairs[i][0];
+        expanded.push(pairs[i][1]);
+      }
+
+      expanded = _.sortBy(expanded, opts.property);
+
+      if(opts.order.toLowerCase() === 'desc') {
+        expanded.reverse();
+      }
+
+      for (var i = 0; i < expanded.length; i++) {
+        var value = expanded[i][opts.property];
+        sorted[keys[value]] = expanded[i];
+      }
+    }
+
+  } else {
+
+    keys = sortKeys(obj, opts);
+    for (var index in keys) {
+      key = keys[index];
+      sorted[key] = obj[key];
+    }
+
   }
 
   return sorted;
