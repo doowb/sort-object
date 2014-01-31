@@ -7,8 +7,17 @@
 
 var _ = require('lodash');
 
-function getKeys(obj) {
+var inspect = require('util').inspect;
+
+function getKeys (obj) {
   return _.keys(obj);
+};
+
+function orderBy(result, opts) {
+  if (opts.order.toLowerCase() === 'desc') {
+    return result * -1;
+  }
+  return result;
 };
 
 /**
@@ -16,16 +25,39 @@ function getKeys(obj) {
  * @param  {Object}     opts optional parameter specifying which order to sort in.
  * @return {Function}   function used to pass into a sort function.
  */
-function sortBy(opts) {
-
+function sortBy (opts) {
   return function (objA, objB) {
     var result = 0;
     result = objA < objB ? -1 : 1;
+    return orderBy(result, opts);
+  };
+};
 
-    if(opts.order.toLowerCase() === 'desc') {
-      return result * -1;
+function sortByProperty (opts) {
+  return function (objA, objB) {
+    var result = 0;
+    var propA = objA[opts.property];
+    var propB = objB[opts.property];
+
+    if ((_.isNull(propA) || _.isUndefined(propA)) &&
+        (_.isNull(propB) || _.isUndefined(propB))) {
+      return result;
     }
-    return result;
+
+    if (_.isNull(propA) || _.isUndefined(propA)) {
+
+      result = -1;
+
+    } else if (_.isNull(propB) || _.isUndefined(propB)) {
+
+      result = 1;
+
+    } else {
+
+      result = objA[opts.property] < objB[opts.property] ? -1 : 1;
+
+    }
+    return orderBy(result, opts);
   };
 };
 
@@ -37,6 +69,51 @@ function sortKeys (obj, opts) {
   keys.sort(sortBy(opts));
 
   return keys;
+};
+
+function sortProperties (obj, opts) {
+
+  var sorted = {};
+  var pairs = _.pairs(obj);
+
+  if (opts.property === true) {
+
+    // sort on the value
+    var values = [];
+    for (var i = 0; i < pairs.length; i++) {
+      var item = {
+        key: pairs[i][0],
+        value: pairs[i][1]
+      };
+      values.push(item);
+    }
+    values.sort(sortByProperty(_.extend({}, opts, { property: 'value' })));
+
+    for (var i = 0; i < values.length; i++) {
+      sorted[values[i].key] = values[i].value;
+    }
+
+  } else {
+
+    // sort on the value of the property key
+    var values = [];
+    for (var i = 0; i < pairs.length; i++) {
+      var value = pairs[i][1];
+      value.__origKey = pairs[i][0];
+      values.push(value);
+    }
+    values.sort(sortByProperty(opts));
+
+    for (var i = 0; i < values.length; i++) {
+      var key = values[i].__origKey;
+      var value = values[i];
+      delete value.__origKey;
+      sorted[key] = value;
+    }
+
+  }
+
+  return sorted;
 };
 
 
@@ -56,37 +133,7 @@ function sort(obj, options) {
 
   if(opts.property && opts.property !== false) {
 
-    if(opts.property === true) {
-      var inverted = _.invert(obj);
-      keys = sortKeys(inverted, opts);
-
-      for (var index in keys) {
-        key = keys[index];
-        sorted[inverted[key]] = key;
-      }
-
-    } else {
-
-      var pairs = _.pairs(obj);
-      var expanded = [];
-      var keys = {};
-      for (var i = 0; i < pairs.length; i++) {
-        key = pairs[i][1][opts.property];
-        keys[key] = pairs[i][0];
-        expanded.push(pairs[i][1]);
-      }
-
-      expanded = _.sortBy(expanded, opts.property);
-
-      if(opts.order.toLowerCase() === 'desc') {
-        expanded.reverse();
-      }
-
-      for (var i = 0; i < expanded.length; i++) {
-        var value = expanded[i][opts.property];
-        sorted[keys[value]] = expanded[i];
-      }
-    }
+    sorted = sortProperties(obj, opts);
 
   } else {
 
