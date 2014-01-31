@@ -41,7 +41,7 @@ function sortKeys (obj, opts) {
 
 
 /**
- * Sorts the ksys on an object
+ * Sorts the keys on an object
  * @param  {Object} obj     Object that has keys to be sorted
  * @param  {Object} options Optional parameter specifying orders for the function
  * @return {Object}         Object with keys sorted
