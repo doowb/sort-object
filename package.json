@@ -21,6 +21,9 @@
     }
   ],
   "main": "sort-object.js",
+  "scripts": {
+    "test": "mocha --reporter list"
+  },
   "engines": {
     "node": ">= 0.8.0"
   },
