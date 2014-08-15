@@ -15,17 +15,12 @@ var noop = function (keys) {
 
 
 module.exports = function (obj, options) {
-  var opts = _.extend({fn: noop, extend: false}, options);
+  var opts = _.extend({fn: noop}, options);
   var keys = opts.keys || _.keys(obj);
 
   var o = {};
-
   keys.sort(opts.fn).forEach(function(key, i) {
-    if (opts.extend) {
-      _.extend(o, obj[keys[i]]);
-    } else {
-      o[keys[i]] = obj[keys[i]];
-    }
+    o[keys[i]] = obj[keys[i]];
   });
 
   return o;
