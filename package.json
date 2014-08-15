@@ -1,7 +1,7 @@
 {
   "name": "sort-object",
-  "description": "Sort the keys in an object.",
-  "version": "0.2.0",
+  "description": "Sort the keys in an object",
+  "version": "0.0.6",
   "homepage": "https://github.com/helpers/sort-object",
   "author": {
     "name": "Brian Woodward",
@@ -9,46 +9,36 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/helpers/sort-object.git"
+    "url": "https://github.com/helpers/sort-object.git"
   },
   "bugs": {
     "url": "https://github.com/helpers/sort-object/issues"
   },
-  "maintainers": [
-    {
-      "name": "Jon Schlinkert",
-      "url": "https://github.com/helpers"
-    }
-  ],
   "licenses": [
     {
       "type": "MIT",
       "url": "https://github.com/helpers/sort-object/blob/master/LICENSE-MIT"
     }
   ],
-  "keywords": [
-    "array",
-    "arr",
-    "function",
-    "keys",
-    "key",
-    "order",
-    "obj",
-    "object",
-    "sort"
-  ],
-  "main": "index.js",
-  "engines": {
-    "node": ">=0.10.0"
-  },
+  "main": "sort-object.js",
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "mocha --reporter list"
   },
-  "devDependencies": {
-    "mocha": "*",
-    "verb": "^0.2.15"
+  "engines": {
+    "node": ">= 0.8.0"
   },
   "dependencies": {
-    "lodash": "^2.4.1"
-  }
+    "lodash": "~2.2.1"
+  },
+  "devDependencies": {
+    "mocha": "~1.13.0",
+    "benchmark": "~1.0.0"
+  },
+  "keywords": [
+    "sort",
+    "sort object",
+    "sort object keys",
+    "sort object by keys",
+    "javascript sort"
+  ]
 }
