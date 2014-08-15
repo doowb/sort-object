@@ -8,26 +8,26 @@
 'use strict';
 
 var assert = require('assert');
-var helper = require('./');
+var sortObj = require('./');
 
 describe('sort object', function () {
   it('should sort the keys on an object', function () {
     var o = {a: 1, c: 2, b: 3};
-    var actual = helper(o);
+    var actual = sortObj(o);
 
     assert.deepEqual(actual, {a: 1, b: 3, c: 2});
   });
 
   it('should create a new object with only the given keys.', function () {
     var o = {a: 1, c: 2, b: 3};
-    var actual = helper(o, {keys: ['a', 'b']});
+    var actual = sortObj(o, {keys: ['a', 'b']});
 
     assert.deepEqual(actual, {a: 1, b: 3});
   });
 
   it('should sort the keys using a custom function.', function () {
     var o = {a: 1, c: 2, e: 5, d: 4, b: 3};
-    var actual = helper(o, {
+    var actual = sortObj(o, {
       fn: function (a, b) {
         return a < b ? -1 : 1;
       }
