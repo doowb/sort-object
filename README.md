@@ -3,10 +3,10 @@
 > Sort the keys in an object.
 
 ## Install
-#### Install with [npm](npmjs.org):
+#### Install with [npm](npmjs.org)
 
 ```bash
-npm i sort-object --save-dev
+npm i sort-object --save
 ```
 
 ## Usage
@@ -44,13 +44,13 @@ console.log(obj);
 
 ## Author
 
-**Jon Schlinkert**
+**Brian Woodward**
  
-+ [github/helpers](https://github.com/helpers)
-+ [twitter/helpers](http://twitter.com/helpers) 
++ [github/doowb](https://github.com/doowb)
++ [twitter/doowb](http://twitter.com/doowb) 
 
 ## License
-Copyright (c) 2014 Jon Schlinkert, contributors.  
+Copyright (c) 2014 Brian Woodward, contributors.  
 Released under the MIT license
 
 ***
