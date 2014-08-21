@@ -1,7 +1,7 @@
 {
   "name": "sort-object",
   "description": "Sort the keys in an object.",
-  "version": "0.2.2",
+  "version": "0.3.1",
   "homepage": "https://github.com/helpers/sort-object",
   "author": {
     "name": "Brian Woodward",
@@ -46,9 +46,11 @@
   },
   "devDependencies": {
     "mocha": "*",
+    "should": "^4.0.4",
     "verb": "^0.2.15"
   },
   "dependencies": {
-    "lodash": "^2.4.1"
+    "sort-asc": "^0.1.0",
+    "sort-desc": "^0.1.1"
   }
 }
