@@ -19,7 +19,8 @@ module.exports = function (obj, options) {
   if (Array.isArray(options)) {
     opts.keys = options;
     options = {};
-  // if `options` is a function, assuming it's a sorting function
+
+  // if `options` is a function, assume it's a sorting function
   } else if (typeof options === 'function') {
     fn = options;
   } else {
@@ -33,16 +34,16 @@ module.exports = function (obj, options) {
   // Default sort order is descending
   fn = opts.sort || sortDesc;
 
-  if (opts.hasOwnProperty('sortOrder')) {
+  if (Boolean(opts.sortOrder)) {
     fn = sort[opts.sortOrder.toLowerCase()];
   }
 
-  if (opts.hasOwnProperty('sortBy')) {
+  if (Boolean(opts.sortBy)) {
     keys = opts.sortBy(obj);
     fn = null;
   }
 
-  if (opts.hasOwnProperty('keys')) {
+  if (Boolean(opts.keys)) {
     keys = opts.keys;
     if (!opts.sort && !opts.sortOrder && !opts.sortBy) {
       fn = null;
@@ -54,9 +55,12 @@ module.exports = function (obj, options) {
   }
 
   var o = {};
-  keys.forEach(function(key, i) {
+  var len = keys.length;
+  var i = -1;
+
+  while (++i < len) {
     o[keys[i]] = obj[keys[i]];
-  });
+  }
 
   return o;
 };

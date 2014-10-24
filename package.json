@@ -1,7 +1,7 @@
 {
   "name": "sort-object",
   "description": "Sort the keys in an object.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "homepage": "https://github.com/helpers/sort-object",
   "author": {
     "name": "Brian Woodward",
@@ -27,15 +27,20 @@
     }
   ],
   "keywords": [
-    "array",
     "arr",
+    "array",
     "function",
-    "keys",
+    "js",
     "key",
-    "order",
+    "keys",
     "obj",
     "object",
-    "sort"
+    "order",
+    "re",
+    "re-order",
+    "sort",
+    "util",
+    "utils"
   ],
   "main": "index.js",
   "engines": {
