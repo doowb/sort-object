@@ -1,7 +1,7 @@
 /*!
- * sort-keys <https://github.com/helpers/sort-keys>
+ * sort-object <https://github.com/helpers/sort-object>
  *
- * Copyright (c) 2014 Brian Woodward, Jon Schlinkert, contributors.
+ * Copyright (c) 2014-2015, Brian Woodward.
  * Licensed under the MIT License
  */
 
@@ -9,7 +9,6 @@
 
 var sortDesc = require('sort-desc');
 var sortAsc = require('sort-asc');
-
 
 module.exports = function (obj, options) {
   var sort = {desc: sortDesc, asc: sortAsc};

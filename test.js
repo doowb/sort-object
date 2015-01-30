@@ -1,7 +1,7 @@
 /*!
- * sort-keys <https://github.com/helpers/sort-keys>
+ * sort-object <https://github.com/doowb/sort-object>
  *
- * Copyright (c) 2014 Brian Woodward, Jon Schlinkert, contributors.
+ * Copyright (c) 2014-2015, Brian Woodward.
  * Licensed under the MIT License
  */
 
