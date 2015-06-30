@@ -9,7 +9,7 @@
 
 var sortDesc = require('sort-desc');
 var sortAsc = require('sort-asc');
-var isObject = require('isobject');
+var isObject = require('is-extendable');
 var get = require('get-value');
 var bytewise = require('bytewise');
 

@@ -41,7 +41,7 @@
   "dependencies": {
     "bytewise": "^1.1.0",
     "get-value": "^1.1.5",
-    "isobject": "^1.0.0",
+    "is-extendable": "^0.1.0",
     "sort-asc": "^0.1.0",
     "sort-desc": "^0.1.1"
   },
