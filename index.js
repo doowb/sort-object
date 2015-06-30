@@ -9,33 +9,27 @@
 
 var sortDesc = require('sort-desc');
 var sortAsc = require('sort-asc');
+var get = require('get-value');
 
-module.exports = function (obj, options) {
-  var sort = {desc: sortDesc, asc: sortAsc};
-  var fn, opts = {}, keys = Object.keys(obj);
+var sortFns = {desc: sortDesc, asc: sortAsc};
 
-  // if `options` is an array, assume it's keys
+module.exports = sort;
+
+function sort (obj, options) {
   if (Array.isArray(options)) {
-    opts.keys = options;
-    options = {};
-
-  // if `options` is a function, assume it's a sorting function
-  } else if (typeof options === 'function') {
-    fn = options;
-  } else {
-    for (var opt in options) {
-      if (options.hasOwnProperty(opt)) {
-        opts[opt] = options[opt]
-      }
-    }
+    options = { keys: options };
   }
 
-  // Default sort order is descending
-  fn = opts.sort || sortDesc;
+  var opts = options || {};
+  var prop = opts.prop;
+  var getFn = opts.get || get;
+  var fn = opts.sort || sortDesc;
 
   if (Boolean(opts.sortOrder)) {
-    fn = sort[opts.sortOrder.toLowerCase()];
+    fn = sortFns[opts.sortOrder.toLowerCase()];
   }
+
+  var keys = opts.keys || [];
 
   if (Boolean(opts.sortBy)) {
     keys = opts.sortBy(obj);
@@ -43,23 +37,55 @@ module.exports = function (obj, options) {
   }
 
   if (Boolean(opts.keys)) {
-    keys = opts.keys;
     if (!opts.sort && !opts.sortOrder && !opts.sortBy) {
       fn = null;
     }
   }
 
+  var tmp = {};
+  var sortBy = {};
+
+  var build = keys.length === 0 ? fromObj : fromKeys;
+  build(obj, keys, tmp, sortBy, function (val, key) {
+    return prop ? getFn(val, prop) : key;
+  });
+
   if (fn) {
-    keys = keys.sort(fn);
+    keys.sort(fn);
   }
 
-  var o = {};
-  var len = keys.length;
-  var i = -1;
-
-  while (++i < len) {
-    o[keys[i]] = obj[keys[i]];
+  var len = keys.length, i = 0, j = 0;
+  var res = {}, prev;
+  while (len--) {
+    var key = keys[i++];
+    if (prev !== key) j = 0;
+    var k = sortBy[key][j++];
+    res[k] = tmp[k];
+    prev = key;
   }
+  return res;
+}
 
-  return o;
-};
+// build up the sorting information from the `obj`
+function fromObj (obj, keys, tmp, sortBy, fn) {
+  for (var key in obj) {
+    var val = obj[key];
+    var item = fn(val, key);
+    sortBy[item] = sortBy[item] || [];
+    sortBy[item].push(key);
+    keys.push(item);
+    tmp[key] = val;
+  }
+}
+
+// build up the sorting information from the supplied keys
+function fromKeys (obj, keys, tmp, sortBy) {
+  var len = keys.length, i = 0;
+  while (len--) {
+    var key = keys[i++];
+    var val = obj[key];
+    sortBy[key] = sortBy[key] || [];
+    sortBy[key].push(key);
+    tmp[key] = val;
+  }
+}
