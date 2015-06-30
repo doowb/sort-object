@@ -9,7 +9,9 @@
 
 var sortDesc = require('sort-desc');
 var sortAsc = require('sort-asc');
+var isObject = require('isobject');
 var get = require('get-value');
+var bytewise = require('bytewise');
 
 var sortFns = {desc: sortDesc, asc: sortAsc};
 
@@ -22,7 +24,9 @@ function sort (obj, options) {
 
   var opts = options || {};
   var prop = opts.prop;
-  var getFn = opts.get || get;
+  var getFn = opts.get || function (val) {
+    if (prop) return get(val, prop);
+  };
   var fn = opts.sort || sortDesc;
 
   if (Boolean(opts.sortOrder)) {
@@ -46,8 +50,8 @@ function sort (obj, options) {
   var sortBy = {};
 
   var build = keys.length === 0 ? fromObj : fromKeys;
-  build(obj, keys, tmp, sortBy, function (val, key) {
-    return prop ? getFn(val, prop) : key;
+  build(obj, keys, tmp, sortBy, function (val) {
+    return getFn(val, prop);
   });
 
   if (fn) {
@@ -70,7 +74,8 @@ function sort (obj, options) {
 function fromObj (obj, keys, tmp, sortBy, fn) {
   for (var key in obj) {
     var val = obj[key];
-    var item = fn(val, key);
+    var item = isObject(val) ? fn(val) || key : key;
+    item = isObject(item) ? bytewise.encode(JSON.stringify(item)).toString() : item;
     sortBy[item] = sortBy[item] || [];
     sortBy[item].push(key);
     keys.push(item);
