@@ -1,7 +1,7 @@
 {
   "name": "sort-object",
   "description": "Sort the keys in an object.",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "homepage": "https://github.com/doowb/sort-object",
   "author": {
     "name": "Brian Woodward",
