@@ -43,7 +43,8 @@
     "get-value": "^1.1.5",
     "is-extendable": "^0.1.0",
     "sort-asc": "^0.1.0",
-    "sort-desc": "^0.1.1"
+    "sort-desc": "^0.1.1",
+    "union-value": "^0.1.1"
   },
   "keywords": [
     "arr",

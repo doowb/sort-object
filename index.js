@@ -7,11 +7,12 @@
 
 'use strict';
 
-var sortDesc = require('sort-desc');
-var sortAsc = require('sort-asc');
 var isObject = require('is-extendable');
-var get = require('get-value');
+var sortDesc = require('sort-desc');
 var bytewise = require('bytewise');
+var union = require('union-value');
+var sortAsc = require('sort-asc');
+var get = require('get-value');
 
 var sortFns = {desc: sortDesc, asc: sortAsc};
 
@@ -76,8 +77,7 @@ function fromObj (obj, keys, tmp, sortBy, fn) {
     var val = obj[key];
     var item = isObject(val) ? fn(val) || key : key;
     item = isObject(item) ? bytewise.encode(JSON.stringify(item)).toString() : item;
-    sortBy[item] = sortBy[item] || [];
-    sortBy[item].push(key);
+    union(sortBy, item, [key]);
     keys.push(item);
     tmp[key] = val;
   }
@@ -89,8 +89,7 @@ function fromKeys (obj, keys, tmp, sortBy) {
   while (len--) {
     var key = keys[i++];
     var val = obj[key];
-    sortBy[key] = sortBy[key] || [];
-    sortBy[key].push(key);
+    union(sortBy, key, [key]);
     tmp[key] = val;
   }
 }
