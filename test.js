@@ -13,19 +13,18 @@ var sortAsc = require('sort-asc');
 var sortDesc = require('sort-desc');
 var sortObj = require('./');
 
-var makeCollection = function () {
-  var collection = {
-    'one': { data: { date: '2015-JUN-30' } },
-    'two': { data: { date: '2015-JUN-30' } },
-    'three': { data: { date: '2015-JUN-30' } },
-    'four': { data: { date: '2015-JUN-21' } },
-    'five': { data: { date: '2015-JUN-21' } },
-    'six': { data: { date: '2015-JUN-21' } },
-    'seven': { data: { date: '2015-JUN-29' } },
-    'eight': { data: { date: '2015-JUN-29' } },
-    'nine': { data: { date: '2015-JUN-29' } },
-    'ten': { data: { date: '2015-JUN-29' } },
-  };
+var makeCollection = function (postFix) {
+  var collection = {};
+  collection['one' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-30' } };
+  collection['two' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-30' } };
+  collection['three' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-30' } };
+  collection['four' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-21' } };
+  collection['five' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-21' } };
+  collection['six' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-21' } };
+  collection['seven' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-29' } };
+  collection['eight' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-29' } };
+  collection['nine' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-29' } };
+  collection['ten' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-29' } };
   return collection;
 }
 
@@ -154,6 +153,21 @@ describe('sort object', function () {
     Object.keys(actual)[9].should.equal('two');
   });
 
+  it('should sort the keys of a complex obj with keys containing `.`', function () {
+    var collection = makeCollection('.md');
+    var actual = sortObj(collection);
+    Object.keys(actual)[0].should.equal('eight.md');
+    Object.keys(actual)[1].should.equal('five.md');
+    Object.keys(actual)[2].should.equal('four.md');
+    Object.keys(actual)[3].should.equal('nine.md');
+    Object.keys(actual)[4].should.equal('one.md');
+    Object.keys(actual)[5].should.equal('seven.md');
+    Object.keys(actual)[6].should.equal('six.md');
+    Object.keys(actual)[7].should.equal('ten.md');
+    Object.keys(actual)[8].should.equal('three.md');
+    Object.keys(actual)[9].should.equal('two.md');
+  });
+
   it('should use a `prop` string to sort on value properties.', function () {
     var collection = makeCollection();
     var actual = sortObj(collection, { prop: 'data.date' });
@@ -167,6 +181,21 @@ describe('sort object', function () {
     Object.keys(actual)[7].should.equal('one');
     Object.keys(actual)[8].should.equal('two');
     Object.keys(actual)[9].should.equal('three');
+  });
+
+  it('should use a `prop` string to sort on value properties with keys containing `.`', function () {
+    var collection = makeCollection('.md');
+    var actual = sortObj(collection, { prop: 'data.date' });
+    Object.keys(actual)[0].should.equal('four.md');
+    Object.keys(actual)[1].should.equal('five.md');
+    Object.keys(actual)[2].should.equal('six.md');
+    Object.keys(actual)[3].should.equal('seven.md');
+    Object.keys(actual)[4].should.equal('eight.md');
+    Object.keys(actual)[5].should.equal('nine.md');
+    Object.keys(actual)[6].should.equal('ten.md');
+    Object.keys(actual)[7].should.equal('one.md');
+    Object.keys(actual)[8].should.equal('two.md');
+    Object.keys(actual)[9].should.equal('three.md');
   });
 
   it('should use a `prop` string to sort on value properties in descending order.', function () {
