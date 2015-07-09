@@ -64,7 +64,7 @@ function sort (obj, options) {
   while (len--) {
     var key = keys[i++];
     if (prev !== key) j = 0;
-    var k = sortBy[key][j++];
+    var k = get(sortBy, key)[j++];
     res[k] = tmp[k];
     prev = key;
   }
