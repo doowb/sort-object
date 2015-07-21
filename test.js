@@ -60,18 +60,18 @@ describe('sort object', function () {
     var o = {a: 1, c: 2, b: 3};
     var actual = sortObj(o, {sortOrder: 'desc'});
 
-    Object.keys(actual)[0].should.equal('a');
+    Object.keys(actual)[0].should.equal('c');
     Object.keys(actual)[1].should.equal('b');
-    Object.keys(actual)[2].should.equal('c');
+    Object.keys(actual)[2].should.equal('a');
   });
 
   it('should sort the keys on an object in ascending order.', function () {
     var o = {a: 1, c: 2, b: 3};
     var actual = sortObj(o, {sortOrder: 'asc'});
 
-    Object.keys(actual)[0].should.equal('c');
+    Object.keys(actual)[0].should.equal('a');
     Object.keys(actual)[1].should.equal('b');
-    Object.keys(actual)[2].should.equal('a');
+    Object.keys(actual)[2].should.equal('c');
   });
 
   it('should sort the keys using a custom function.', function () {
@@ -102,8 +102,8 @@ describe('sort object', function () {
       sort: sortDesc
     });
 
-    Object.keys(o)[0].should.equal('a');
-    Object.keys(o)[1].should.equal('c');
+    Object.keys(o)[0].should.equal('c');
+    Object.keys(o)[1].should.equal('a');
     o.should.not.have.property('b');
   });
 
@@ -113,8 +113,8 @@ describe('sort object', function () {
       sort: sortAsc
     });
 
-    Object.keys(o)[0].should.equal('b');
-    Object.keys(o)[1].should.equal('a');
+    Object.keys(o)[0].should.equal('a');
+    Object.keys(o)[1].should.equal('b');
     o.should.not.have.property('c');
   });
 
@@ -201,21 +201,6 @@ describe('sort object', function () {
   it('should use a `prop` string to sort on value properties in descending order.', function () {
     var collection = makeCollection();
     var actual = sortObj(collection, { prop: 'data.date', sortOrder: 'desc' });
-    Object.keys(actual)[0].should.equal('four');
-    Object.keys(actual)[1].should.equal('five');
-    Object.keys(actual)[2].should.equal('six');
-    Object.keys(actual)[3].should.equal('seven');
-    Object.keys(actual)[4].should.equal('eight');
-    Object.keys(actual)[5].should.equal('nine');
-    Object.keys(actual)[6].should.equal('ten');
-    Object.keys(actual)[7].should.equal('one');
-    Object.keys(actual)[8].should.equal('two');
-    Object.keys(actual)[9].should.equal('three');
-  });
-
-  it('should use a `prop` string to sort on value properties in ascending order.', function () {
-    var collection = makeCollection();
-    var actual = sortObj(collection, { prop: 'data.date', sortOrder: 'asc' });
     Object.keys(actual)[0].should.equal('one');
     Object.keys(actual)[1].should.equal('two');
     Object.keys(actual)[2].should.equal('three');
@@ -226,5 +211,20 @@ describe('sort object', function () {
     Object.keys(actual)[7].should.equal('four');
     Object.keys(actual)[8].should.equal('five');
     Object.keys(actual)[9].should.equal('six');
+  });
+
+  it('should use a `prop` string to sort on value properties in ascending order.', function () {
+    var collection = makeCollection();
+    var actual = sortObj(collection, { prop: 'data.date', sortOrder: 'asc' });
+    Object.keys(actual)[0].should.equal('four');
+    Object.keys(actual)[1].should.equal('five');
+    Object.keys(actual)[2].should.equal('six');
+    Object.keys(actual)[3].should.equal('seven');
+    Object.keys(actual)[4].should.equal('eight');
+    Object.keys(actual)[5].should.equal('nine');
+    Object.keys(actual)[6].should.equal('ten');
+    Object.keys(actual)[7].should.equal('one');
+    Object.keys(actual)[8].should.equal('two');
+    Object.keys(actual)[9].should.equal('three');
   });
 });

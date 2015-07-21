@@ -28,7 +28,7 @@ function sort (obj, options) {
   var getFn = opts.get || function (val) {
     if (prop) return get(val, prop);
   };
-  var fn = opts.sort || sortDesc;
+  var fn = opts.sort || sortAsc;
 
   if (Boolean(opts.sortOrder)) {
     fn = sortFns[opts.sortOrder.toLowerCase()];
