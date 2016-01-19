@@ -16,9 +16,13 @@ var get = require('get-value');
 
 var sortFns = {desc: sortDesc, asc: sortAsc};
 
+/**
+ * Expose `sort`
+ */
+
 module.exports = sort;
 
-function sort (obj, options) {
+function sort(obj, options) {
   if (Array.isArray(options)) {
     options = { keys: options };
   }
@@ -72,10 +76,10 @@ function sort (obj, options) {
 }
 
 // build up the sorting information from the `obj`
-function fromObj (obj, keys, tmp, sortBy, fn) {
+function fromObj(obj, keys, tmp, sortBy, fn) {
   for (var key in obj) {
     var val = obj[key];
-    var item = isObject(val) ? fn(val) || key : key;
+    var item = isObject(val) ? (fn(val) || key) : key;
     item = isObject(item) ? bytewise.encode(JSON.stringify(item)).toString() : item;
     union(sortBy, item, [key]);
     keys.push(item);
@@ -84,7 +88,7 @@ function fromObj (obj, keys, tmp, sortBy, fn) {
 }
 
 // build up the sorting information from the supplied keys
-function fromKeys (obj, keys, tmp, sortBy) {
+function fromKeys(obj, keys, tmp, sortBy) {
   var len = keys.length, i = 0;
   while (len--) {
     var key = keys[i++];
