@@ -13,7 +13,7 @@ var sortAsc = require('sort-asc');
 var sortDesc = require('sort-desc');
 var sortObj = require('./');
 
-var makeCollection = function (postFix) {
+var makeCollection = function(postFix) {
   var collection = {};
   collection['one' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-30' } };
   collection['two' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-30' } };
@@ -28,8 +28,8 @@ var makeCollection = function (postFix) {
   return collection;
 }
 
-describe('sort object', function () {
-  it('should create a new object with only the given keys.', function () {
+describe('sort object', function() {
+  it('should create a new object with only the given keys.', function() {
     var o = {a: 1, c: 2, b: 3};
     var actual = sortObj(o, {keys: ['a', 'b']});
 
@@ -38,7 +38,7 @@ describe('sort object', function () {
     actual.should.not.have.property('c');
   });
 
-  it('should sort the keys on an object with alphabetical keys', function () {
+  it('should sort the keys on an object with alphabetical keys', function() {
     var o = {a: 1, c: 2, b: 3};
     var actual = sortObj(o);
 
@@ -47,7 +47,7 @@ describe('sort object', function () {
     Object.keys(actual)[2].should.equal('c');
   });
 
-  it('should sort the keys on an object with numerical keys', function () {
+  it('should sort the keys on an object with numerical keys', function() {
     var o = {1: 1, 3: 3, 2: 2};
     var actual = sortObj(o);
 
@@ -56,7 +56,7 @@ describe('sort object', function () {
     Object.keys(actual)[2].should.equal('3');
   });
 
-  it('should sort the keys on an object in descending order.', function () {
+  it('should sort the keys on an object in descending order.', function() {
     var o = {a: 1, c: 2, b: 3};
     var actual = sortObj(o, {sortOrder: 'desc'});
 
@@ -65,7 +65,7 @@ describe('sort object', function () {
     Object.keys(actual)[2].should.equal('a');
   });
 
-  it('should sort the keys on an object in ascending order.', function () {
+  it('should sort the keys on an object in ascending order.', function() {
     var o = {a: 1, c: 2, b: 3};
     var actual = sortObj(o, {sortOrder: 'asc'});
 
@@ -74,10 +74,10 @@ describe('sort object', function () {
     Object.keys(actual)[2].should.equal('c');
   });
 
-  it('should sort the keys using a custom function.', function () {
+  it('should sort the keys using a custom function.', function() {
     var o = {a: 1, c: 2, e: 5, d: 4, b: 3};
     var actual = sortObj(o, {
-      sort: function (a, b) {
+      sort: function(a, b) {
         return a < b ? -1 : 1;
       }
     });
@@ -88,7 +88,7 @@ describe('sort object', function () {
     Object.keys(actual)[2].should.equal('c');
   });
 
-  it('should sort keys to the order in the given array.', function () {
+  it('should sort keys to the order in the given array.', function() {
     var o = sortObj({a: 'a', b: 'b', c: 'c'}, ['c', 'a', 'b']);
 
     Object.keys(o)[0].should.equal('c');
@@ -96,7 +96,7 @@ describe('sort object', function () {
     Object.keys(o)[2].should.equal('b');
   });
 
-  it('should use a function to sort keys in the given array.', function () {
+  it('should use a function to sort keys in the given array.', function() {
     var o = sortObj({a: 'a', b: 'b', c: 'c'}, {
       keys: ['c', 'a'],
       sort: sortDesc
@@ -107,7 +107,7 @@ describe('sort object', function () {
     o.should.not.have.property('b');
   });
 
-  it('should use a function to sort keys in the given array.', function () {
+  it('should use a function to sort keys in the given array.', function() {
     var o = sortObj({a: 'a', b: 'b', c: 'c'}, {
       keys: ['b', 'a'],
       sort: sortAsc
@@ -119,10 +119,10 @@ describe('sort object', function () {
   });
 
 
-  it('should use a `sortBy` function to return an array of keys to sort by.', function () {
+  it('should use a `sortBy` function to return an array of keys to sort by.', function() {
     var old = {one: 'aa', two: 'bc', three: 'ab'};
     var o = sortObj(old, {
-      sortBy: function (obj) {
+      sortBy: function(obj) {
         var arr = [];
         Object.keys(obj).filter(function(key) {
           if (/^a/.test(obj[key])) {
@@ -138,7 +138,7 @@ describe('sort object', function () {
     Object.keys(o)[1].should.equal('one');
   });
 
-  it('should sort the keys of a complex obj', function () {
+  it('should sort the keys of a complex obj', function() {
     var collection = makeCollection();
     var actual = sortObj(collection);
     Object.keys(actual)[0].should.equal('eight');
@@ -153,7 +153,7 @@ describe('sort object', function () {
     Object.keys(actual)[9].should.equal('two');
   });
 
-  it('should sort the keys of a complex obj with keys containing `.`', function () {
+  it('should sort the keys of a complex obj with keys containing `.`', function() {
     var collection = makeCollection('.md');
     var actual = sortObj(collection);
     Object.keys(actual)[0].should.equal('eight.md');
@@ -168,7 +168,7 @@ describe('sort object', function () {
     Object.keys(actual)[9].should.equal('two.md');
   });
 
-  it('should use a `prop` string to sort on value properties.', function () {
+  it('should use a `prop` string to sort on value properties.', function() {
     var collection = makeCollection();
     var actual = sortObj(collection, { prop: 'data.date' });
     Object.keys(actual)[0].should.equal('four');
@@ -183,7 +183,7 @@ describe('sort object', function () {
     Object.keys(actual)[9].should.equal('three');
   });
 
-  it('should use a `prop` string to sort on value properties with keys containing `.`', function () {
+  it('should use a `prop` string to sort on value properties with keys containing `.`', function() {
     var collection = makeCollection('.md');
     var actual = sortObj(collection, { prop: 'data.date' });
     Object.keys(actual)[0].should.equal('four.md');
@@ -198,7 +198,7 @@ describe('sort object', function () {
     Object.keys(actual)[9].should.equal('three.md');
   });
 
-  it('should use a `prop` string to sort on value properties in descending order.', function () {
+  it('should use a `prop` string to sort on value properties in descending order.', function() {
     var collection = makeCollection();
     var actual = sortObj(collection, { prop: 'data.date', sortOrder: 'desc' });
     Object.keys(actual)[0].should.equal('one');
@@ -213,7 +213,7 @@ describe('sort object', function () {
     Object.keys(actual)[9].should.equal('six');
   });
 
-  it('should use a `prop` string to sort on value properties in ascending order.', function () {
+  it('should use a `prop` string to sort on value properties in ascending order.', function() {
     var collection = makeCollection();
     var actual = sortObj(collection, { prop: 'data.date', sortOrder: 'asc' });
     Object.keys(actual)[0].should.equal('four');

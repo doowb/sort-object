@@ -25,7 +25,7 @@ function sort (obj, options) {
 
   var opts = options || {};
   var prop = opts.prop;
-  var getFn = opts.get || function (val) {
+  var getFn = opts.get || function(val) {
     if (prop) return get(val, prop);
   };
   var fn = opts.sort || sortAsc;
@@ -51,7 +51,7 @@ function sort (obj, options) {
   var sortBy = {};
 
   var build = keys.length === 0 ? fromObj : fromKeys;
-  build(obj, keys, tmp, sortBy, function (val) {
+  build(obj, keys, tmp, sortBy, function(val) {
     return getFn(val, prop);
   });
 
