@@ -16,7 +16,7 @@ $ npm i sort-object --save
 var sortObj = require('sort-object');
 ```
 
-By default, the keys on an object will be sorted in descending order:
+By default, the keys on an object will be sorted in ascending order:
 
 ```js
 sortObj({a: 1, c: 2, b: 3});
