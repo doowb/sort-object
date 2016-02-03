@@ -7,26 +7,26 @@
 
 'use strict';
 
-var should = require('should');
-var assert = require('assert');
+require('should');
 var sortAsc = require('sort-asc');
 var sortDesc = require('sort-desc');
 var sortObj = require('./');
 
 var makeCollection = function(postFix) {
+  postFix = postFix || '';
   var collection = {};
-  collection['one' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-30' } };
-  collection['two' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-30' } };
-  collection['three' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-30' } };
-  collection['four' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-21' } };
-  collection['five' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-21' } };
-  collection['six' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-21' } };
-  collection['seven' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-29' } };
-  collection['eight' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-29' } };
-  collection['nine' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-29' } };
-  collection['ten' + (postFix ? postFix : '')] = { data: { date: '2015-JUN-29' } };
+  collection['one' + postFix] = { data: { date: '2015-JUN-30' } };
+  collection['two' + postFix] = { data: { date: '2015-JUN-30' } };
+  collection['three' + postFix] = { data: { date: '2015-JUN-30' } };
+  collection['four' + postFix] = { data: { date: '2015-JUN-21' } };
+  collection['five' + postFix] = { data: { date: '2015-JUN-21' } };
+  collection['six' + postFix] = { data: { date: '2015-JUN-21' } };
+  collection['seven' + postFix] = { data: { date: '2015-JUN-29' } };
+  collection['eight' + postFix] = { data: { date: '2015-JUN-29' } };
+  collection['nine' + postFix] = { data: { date: '2015-JUN-29' } };
+  collection['ten' + postFix] = { data: { date: '2015-JUN-29' } };
   return collection;
-}
+};
 
 describe('sort object', function() {
   it('should create a new object with only the given keys.', function() {
@@ -117,7 +117,6 @@ describe('sort object', function() {
     Object.keys(o)[1].should.equal('b');
     o.should.not.have.property('c');
   });
-
 
   it('should use a `sortBy` function to return an array of keys to sort by.', function() {
     var old = {one: 'aa', two: 'bc', three: 'ab'};
