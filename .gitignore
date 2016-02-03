@@ -23,6 +23,7 @@ npm-debug.log
 
 # Always-ignore dirs
 /bower_components/
+/coverage/
 /node_modules/
 /temp/
 /tmp/
