@@ -226,4 +226,88 @@ describe('sort object', function() {
     Object.keys(actual)[8].should.equal('two');
     Object.keys(actual)[9].should.equal('three');
   });
+
+  it('should use a `prop` string to sort on object values by index.', function() {
+    var collection = makeCollection();
+    Object.keys(collection).forEach(function(key, i) {
+      collection[key].data.complex = {
+        index: i,
+        key: key
+      };
+    });
+    var actual = sortObj(collection, { prop: 'data.complex' });
+    Object.keys(actual)[0].should.equal('one');
+    Object.keys(actual)[1].should.equal('two');
+    Object.keys(actual)[2].should.equal('three');
+    Object.keys(actual)[3].should.equal('four');
+    Object.keys(actual)[4].should.equal('five');
+    Object.keys(actual)[5].should.equal('six');
+    Object.keys(actual)[6].should.equal('seven');
+    Object.keys(actual)[7].should.equal('eight');
+    Object.keys(actual)[8].should.equal('nine');
+    Object.keys(actual)[9].should.equal('ten');
+  });
+
+  it('should use a `prop` string to sort on object values by index in descending order.', function() {
+    var collection = makeCollection();
+    Object.keys(collection).forEach(function(key, i) {
+      collection[key].data.complex = {
+        index: i,
+        key: key
+      };
+    });
+    var actual = sortObj(collection, { prop: 'data.complex', sortOrder: 'desc' });
+    Object.keys(actual)[0].should.equal('ten');
+    Object.keys(actual)[1].should.equal('nine');
+    Object.keys(actual)[2].should.equal('eight');
+    Object.keys(actual)[3].should.equal('seven');
+    Object.keys(actual)[4].should.equal('six');
+    Object.keys(actual)[5].should.equal('five');
+    Object.keys(actual)[6].should.equal('four');
+    Object.keys(actual)[7].should.equal('three');
+    Object.keys(actual)[8].should.equal('two');
+    Object.keys(actual)[9].should.equal('one');
+  });
+
+  it('should use a `prop` string to sort on object values by key.', function() {
+    var collection = makeCollection();
+    Object.keys(collection).forEach(function(key, i) {
+      collection[key].data.complex = {
+        key: key,
+        index: i
+      };
+    });
+    var actual = sortObj(collection, { prop: 'data.complex' });
+    Object.keys(actual)[0].should.equal('eight');
+    Object.keys(actual)[1].should.equal('five');
+    Object.keys(actual)[2].should.equal('four');
+    Object.keys(actual)[3].should.equal('nine');
+    Object.keys(actual)[4].should.equal('one');
+    Object.keys(actual)[5].should.equal('seven');
+    Object.keys(actual)[6].should.equal('six');
+    Object.keys(actual)[7].should.equal('ten');
+    Object.keys(actual)[8].should.equal('three');
+    Object.keys(actual)[9].should.equal('two');
+  });
+
+  it('should use a `prop` string to sort on object values by key in descending order.', function() {
+    var collection = makeCollection();
+    Object.keys(collection).forEach(function(key, i) {
+      collection[key].data.complex = {
+        key: key,
+        index: i
+      };
+    });
+    var actual = sortObj(collection, { prop: 'data.complex', sortOrder: 'desc'});
+    Object.keys(actual)[0].should.equal('two');
+    Object.keys(actual)[1].should.equal('three');
+    Object.keys(actual)[2].should.equal('ten');
+    Object.keys(actual)[3].should.equal('six');
+    Object.keys(actual)[4].should.equal('seven');
+    Object.keys(actual)[5].should.equal('one');
+    Object.keys(actual)[6].should.equal('nine');
+    Object.keys(actual)[7].should.equal('four');
+    Object.keys(actual)[8].should.equal('five');
+    Object.keys(actual)[9].should.equal('eight');
+  });
 });
