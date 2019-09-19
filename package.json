@@ -17,7 +17,7 @@
   ],
   "main": "index.js",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
     "test": "mocha"
@@ -28,7 +28,7 @@
     "is-extendable": "^0.1.1",
     "sort-asc": "^0.2.0",
     "sort-desc": "^0.2.0",
-    "union-value": "^1.0.1"
+    "union-value": "^2.0.1"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
